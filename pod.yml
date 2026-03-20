@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-calculator
+  labels:
+    project: calculator
+spec:
+  containers:
+    - name: sample-calculator
+      image: sriramsrb/calculator-app
+      ports:
+        - containerPort: 5000

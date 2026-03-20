@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calculator-deployment
+  labels:
+    project: calculator
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      project: calculator
+  template:
+    metadata:
+      labels: 
+        project: calculator
+    spec:
+      containers: 
+        - name: calculator-app
+          image: sriramsrb/calculator-app
+          ports:
+            - containerPort: 5000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: calculator-app-service
+  labels:
+    app: calculator-service
+spec:
+  type: NodePort
+  selector:
+    project: calculator
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+      nodePort: 30080

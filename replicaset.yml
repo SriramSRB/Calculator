@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: calculator-app-rs
+  labels:
+    app: calculate-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      project: calculator
+  template:
+    metadata:
+      labels:
+        project: calculator
+    spec:
+      containers:
+        - name: sample-calculator
+          image: sriramsrb/calculator-app
+          ports:
+            - containerPort: 5000
